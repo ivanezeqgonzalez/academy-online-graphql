@@ -13,6 +13,21 @@ const type: IResolvers = {
             })
             return arrCourses;
         }
+    },
+    Course: {
+        students: parent => {
+            const arrStudents: Array<any> = [];
+            const idCourse = parent.id;
+            database.students.map((student: any) => {
+                if (student.courses.filter( 
+                    ( id: any ) => id ===  idCourse) > 0) {
+                        arrStudents.push(student)
+                }
+            });
+            return arrStudents
+        },
+        path: parent => `https://www.udemy.com${parent.path}`
+        
     }
 }
 
