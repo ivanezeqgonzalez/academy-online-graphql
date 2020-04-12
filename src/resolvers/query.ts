@@ -20,7 +20,25 @@ const query: IResolvers = {
         },
         courses(): any {
             return database.courses
-        }
+        },
+        course(__: void, { id }): any {
+            const resultado = database.courses.filter(course => course.id === id)[0]
+            if (resultado === undefined) {
+                return {
+                    id: '-1',
+                    title: `Course with id: ${id} not found`,
+                    description: '',
+                    clases: -1,
+                    time: 0.0,
+                    logo: '',
+                    level: 'TODOS',
+                    path: '',
+                    teacher: '',
+                    reviews: []
+                }
+            }
+            return resultado;
+        },
     }
 }
 
