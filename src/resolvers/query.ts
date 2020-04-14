@@ -1,5 +1,6 @@
 import { database } from './../data/data.store';
 import { IResolvers} from 'graphql-tools';
+import { GraphQLError } from 'graphql';
 
 const query: IResolvers = {
     Query: {
@@ -24,18 +25,9 @@ const query: IResolvers = {
         course(__: void, { id }): any {
             const resultado = database.courses.filter(course => course.id === id)[0]
             if (resultado === undefined) {
-                return {
-                    id: '-1',
-                    title: `Course with id: ${id} not found`,
-                    description: '',
-                    clases: -1,
-                    time: 0.0,
-                    logo: '',
-                    level: 'TODOS',
-                    path: '',
-                    teacher: '',
-                    reviews: []
-                }
+                throw new Error(
+                    `id: ${id}' doesn't exists in database`
+                );
             }
             return resultado;
         },

@@ -23,7 +23,10 @@ const mutation: IResolvers = {
                 itemCourse.title === newCourse.title ).length === 0) {
                     database.courses.push(newCourse);
                     return newCourse;
-            }           
+            }
+            throw new UserInputError(
+                `Title '${title}' exists in database`
+            );           
         }
     }
     
