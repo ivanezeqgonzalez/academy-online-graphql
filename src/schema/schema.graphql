@@ -1,12 +1,33 @@
 type Query {
     "info of students"
     students: [Student!]!
+
     "info of student"
     student(id: ID!): Student!
+    
     "List of courses"
     courses: [Course!]!
+    
     "Get course by id"
     course(id: ID!): Course!
+}
+
+type Mutation {
+    addCourse(course: CourseInput!): Course!
+    editCourse(course: CourseInput!): Course!
+    deleteCourse(id: ID!): Course!
+}
+
+input CourseInput {
+    id: ID
+    title: String!
+    description: String!
+    clases: Int!
+    time: Float!
+    logo: String!
+    level: Level=ALL
+    path: String!
+    teacher: String!
 }
 
 "Información de los estudiantes"
