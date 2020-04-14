@@ -27,6 +27,23 @@ const mutation: IResolvers = {
             throw new UserInputError(
                 `Title '${title}' exists in database`
             );           
+        },
+        editCourse(__: void, { course }): any {
+            const indexCourse  = _.findIndex(database.courses, (c) => {
+                return c.id === course.id
+            });
+
+            if( indexCourse > -1 ) {
+                const oldCOurse = database.courses[indexCourse];
+                database.courses[indexCourse] = {
+                    ...course,
+                    reviews: oldCOurse.reviews
+                };
+                return database.courses[indexCourse];
+            }
+            throw new UserInputError(
+                `Course doesn't exists in database`
+            )
         }
     }
     
