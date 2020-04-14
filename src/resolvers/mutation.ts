@@ -44,9 +44,20 @@ const mutation: IResolvers = {
             throw new UserInputError(
                 `Course doesn't exists in database`
             )
+        },
+        deleteCourse(__: void, { id }): any {
+            const deletedCourse = _.remove(database.courses,  course => {
+                return course.id === id;
+            })
+            console.log(deletedCourse[0] === undefined)
+            if ( deletedCourse[0] === undefined ) {
+                throw new UserInputError(
+                    `id: ${id} doesn't exists in database`
+                )
+            }
+            return deletedCourse[0];
         }
     }
-    
 }
 
 export default mutation;
